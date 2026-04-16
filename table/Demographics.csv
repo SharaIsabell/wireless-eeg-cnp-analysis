@@ -1,0 +1,41 @@
+ID,Pain Score (Actual Pain of Brief Pain Inventory),Age,Gender,Etiology of NP*,Time with NP,Medical treatment for NP,Since when have you use the previous medication?,Have you had any medical procedures to control the pain?,Do you go regularly to phsychological or emotional counseling sessions for your pain?,"Do you suffer from any neurological disorder? (eg. epilepsy, Alzheimer, tinnitus)",Have you suffered any head traumatism? 
+0,7,25,F,Central Nervous System Disorder (CRPS or Lyme),More than 2 years,"Pregabalin, amitriptyline",More than a year ago,Nerve blocks and infusions*,Yes,No,None
+1,4,57,F,Diabetes,More than 2 years,Tramadol,More than a month ago,None,No,No,None
+2,3,20,F,Peripheral neuropathy,More than 2 years,Keterolac,More than a year ago,None,No,No,None
+3,8,34,F,Spinal cord or nerve root injury,More than 2 years,Tramadol,More than a year ago,Physiotherapy,No,No,None
+4,5,77,M,Spinal cord or nerve root injury,More than 2 years,None,,None,No,No,Yes - more than 20 years ago
+5,2,51,F,Other (NP in the head and surrounding areas),More than 2 years,None,,None,No,No,None
+6,7,42,M,Diabetes,3 - 6 months,"Pentoxifylline, combined diclofenac and B Vitamins (Thiamine, Pyridoxine)",4 weeks ago ,None,No,No,None
+7,3,23,F,Central Nervous System Disorder (CRPS or Lyme),1 - 2 years,"Gabapentin, Tramadol",More than a year ago,None,No,No,None
+8,4,58,F,Peripheral neuropathy,More than 2 years,"Pregabalin, Gabapentin",More than a year ago,None,No,No,None
+9,9,24,M,Trigeminal neuralgia,More than 2 years,None,,None,No,No,None
+10,3,55,M,Diabetes,1 - 2 years,Pregabalin,More than a year ago,None,No,No,None
+11,6,48,M,Diabetes,More than 2 years,Gabapentin,More than a year ago,None,No,No,None
+13,3,50,F,Spinal cord or nerve root injury,More than 2 years,None,,Infusions,No,No,None
+14,3,33,F,Spinal cord or nerve root injury,More than 2 years,"Pregabalin, Tramadol, CBD derivatives, duloxetine and acetaminophen",More than a year ago,"Nerve block, Infusions, and epidural steroid inyection",Yes,No,None
+15,8,68,F,Peripheral neuropathy,1 - 2 years,"Pregabalin, Tramadol, B Complex",More than a year ago,Fisioterapia,No,No,None
+16,5,53,F,"Other (NP irradiating from lower back, right arm and left hip) ",More than 2 years,Ocasionally a Keterolac,More than a year ago,None,No,No,None
+18,5,53,F,Diabetes,1 - 2 years,Acetaminophen,More than a month ago,None,No,No,None
+19,8,63,M,Diabetes,More than 2 years,Pregabalin,More than a year ago,None,No,No,None
+20,7,42,F,Spinal cord or nerve root injury,1 - 2 years,Pregabalin,4 weeks ago ,Lumbar Microdisecthomy ,No,No,None
+21,6,27,F,"Other (NP radiating from right hip, to right glute and right leg)  ",More than 2 years,"Tramadol, Methocarbamol (Robaxin)",More than a year ago,Infusions and steroid inyections,Yes,No,None
+22,7,42,M,Spinal cord or nerve root injury,More than 2 years,CBD Derivatives,More than a month ago,Surgery,No,No,None
+23,6,55,F,Trigeminal neuralgia,More than 2 years,"Amitriptyline, Topiramate, Erenumab",More than a year ago,,No,No,None
+24,9,32,M,Spinal cord or nerve root injury,6 months - 1 year,"Pregabalin, Diclofenac",More than a year ago,None,No,No,None
+25,8,46,F,Spinal cord or nerve root injury,More than 2 years,"Amitriptyline, Tramadol, Dorixina, and rivotril to sleep",More than a year ago,Lumbar nerve block and botox in the cervical region,Yes,No,None
+26,0,60,F,Spinal cord or nerve root injury,More than 2 years,"Gabapentin, Acemetacin",More than a year ago,None,No,No,None
+27,1,53,F,Peripheral neuropathy,More than 2 years,None,More than a year ago,None,No,No,None
+30,3,28,F,Peripheral neuropathy,6 months - 1 year,Amitriptyline,More than a year ago,None,Yes,No,None
+31,9,47,F,Spinal cord or nerve root injury,More than 2 years,Duloxetine,More than a month ago,Nerve block and decompresion surgery for spinal disc ,No,No,None
+33,6,58,F,Peripheral neuropathy,More than 2 years,Occasionally Flanax or Robaxisal,More than a year ago,Nerve block,No,No,None
+35,1,29,F,Peripheral neuropathy,More than 2 years,None,,"Nerve block, Infusions",No,No,None
+37,0,32,F,Trigeminal neuralgia,More than 2 years,None,,None,No,No,None
+38,7,50,F,Peripheral neuropathy,More than 2 years,"Tramadol, Dexketoprofen",More than a year ago,,No,No,None
+39,8,40,F,Central Nervous System Disorder (CRPS or Lyme),More than 2 years,"Pregabalin, Oxycodone or Tapentadol, CBD derivatives, Methadone, Ketamine, Oxcarbazepine",More than a year ago,Infusions and lumbar block with steroids,Yes,No,None
+40,4,55,F,"Peripheral neuropathy (left foot, head and lower back)",More than 2 years,None,More than a year ago,None,No,No,None
+41,7,51,F,Peripheral neuropathy,More than 2 years,"None, when unbearable occasionally a capsule of Duloxetine",More than a year ago,None,No,No,None
+43,6,31,F,Spinal cord or nerve root injury,1 - 2 years,"Mostly none, but occasionally CBD derivatives",More than a year ago,Nerve block ,Yes,No,None
+,,,,,,,,,,,
+*NP is neuropathic pain ,,,,,,,,,,,
+"*Infusions through IV, e.g., glylocaine or ketamine",,,,,,,,,,,
+"F=Female, M=Male",,,,,,,,,,,
