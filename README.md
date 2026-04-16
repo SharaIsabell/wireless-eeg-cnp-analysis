@@ -1,4 +1,4 @@
-"""# Predição de Severidade da Dor Crônica Neuropática via EEG de Repouso
+# Predição de Severidade da Dor Crônica Neuropática via EEG de Repouso
 
 Este repositório contém o pipeline completo de processamento de sinais e Machine Learning para a identificação de biomarcadores de dor crônica neuropática a partir de Eletroencefalograma (EEG) em estado de repouso.
 
