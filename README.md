@@ -1,57 +1,75 @@
-# Predição de Severidade da Dor Crônica Neuropática via EEG de Repouso
+# Neuropathic Chronic Pain Severity Prediction via Resting-State EEG
 
-Este repositório contém o pipeline completo de processamento de sinais e Machine Learning para a identificação de biomarcadores de dor crônica neuropática a partir de Eletroencefalograma (EEG) em estado de repouso.
+This repository contains the complete signal processing and Machine Learning pipeline for identifying biomarkers of neuropathic chronic pain using resting-state Electroencephalogram (EEG) data.
 
-O objetivo central foi cruzar dados clínicos de questionários de dor (**BPI** e **PainDetect**) com sinais elétricos cerebrais ($N=36$ pacientes), buscando uma assinatura neurofisiológica objetiva para a intensidade da dor.
-
----
-
-## 1. Pré-Processamento dos Sinais
-
-O pré-processamento foi realizado utilizando a biblioteca `MNE-Python`:
-
-* **Importação e Estruturação:** Leitura de arquivos `.fif` (e `.gdf`) padronizados.
-* **Filtragem Espacial e Temporal:** Aplicação de filtros *High-pass* (4 Hz) e *Low-pass* (40 Hz) para isolar as frequências cognitivas (Theta, Alpha, Beta e Gamma) e remover ruídos.
-* **Alinhamento de Dados:** Criação de um pipeline robusto com `pandas` para cruzar o ID do paciente no arquivo de EEG com sua respectiva nota de dor nos questionários clínicos, utilizando estratégias contra valores ausentes e tipagem incorreta (*Zero Padding* e *casting* seguro).
+The core objective was to cross-reference clinical data from pain questionnaires (**BPI** and **PainDetect**) with brain electrical signals ($N=36$ patients), seeking an objective neurophysiological signature for pain intensity.
 
 ---
 
-## 2. Hipóteses Testadas e Modelos que "Falharam"
+### Dataset
 
-Testamos abordagens clássicas e avançadas que esbarraram nas limitações físicas do tamanho da amostra:
+To run this project, you need to download the clinical and EEG data from the official repository and place it in a local folder.
 
-### Regressão Contínua (SVR e Random Forest Regressor)
-* **Objetivo:** Tentar prever a nota exata de dor (de 0 a 10) informada no questionário BPI.
-* **O que aconteceu:** *Overfitting* severo ($R^2$ negativo e altos erros RMSE).
-* **Conclusão:** Com métodos lineares e apenas 36 pacientes o modelo decorava os ruídos do treino e falhava na validação cruzada.
+1. **Download:** [Mendeley Data - Chronic Neuropathic Pain: EEG data](https://data.mendeley.com/datasets/yj52xrfgtz/4)
+2. **Setup:** Create a folder named `data` in the root of this repository and extract the files there.
 
-### Acoplamento Fase-Amplitude - PAC
-* **Objetivo:** Medir como ondas lentas modulam ondas rápidas (ex: modulação Alpha-Gamma na região frontal).
-* **O que aconteceu:** O PAC gerou 248 variáveis (biomarcadores) por paciente. Com 248 *features* e apenas 36 amostras, a acurácia do modelo de Classificação despencou para ~39%.
-* **Conclusão:** O algoritmo Random Forest "se afogou" na dimensionalidade, enquanto o `SelectKBest` sofreu ilusão estatística durante a Validação Cruzada K-Fold, selecionando falsos padrões gerados pelo ruído.
+**Reference:**
+> M. Zolezzi, Daniela; Naal-Ruiz, Norberto E. ; Alonso Valerdi, Luz María; Ibarra Zárate, Davi Isaac (2023), “Chronic Neuropathic Pain: EEG data in eyes open (5 min) and eyes closed (5 min) with questionnaire reports ”, Mendeley Data, V4, doi: 10.17632/yj52xrfgtz.4
 
----
+#### Description
+The dataset consists of resting-state EEG recordings (5 min Eyes Open, 5 min Eyes Closed) from **36 patients** diagnosed with chronic neuropathic pain (NP). Clinical characterization was performed using **PainDetect** and **BPI** questionnaires.
 
-## 3. Decomposição EMD + Classificação
+* **Sample:** 36 patients (mean age 44±13.98).
+* **Hardware:** mBrain Train cap (24 Ag/AgCl electrodes), 250 Hz sampling rate.
+* **Conditions:** Patients with NP for >3 months, confirmed by clinical history and PainDetect score >12.
 
-Para contornar o baixo número de amostras, mudamos o paradigma:
+## 1. Signal Pre-processing
 
-1.  **Problema Binário:** Abandonamos a regressão e passamos a classificar os pacientes em dois grupos clínicos reais: **Dor Intensa ($\ge 6$)** vs. **Dor Leve/Moderada ($< 6$)**.
-2.  **Decomposição em Modos Empíricos (EMD):** O cérebro não é linear, então ao em vez de usar Fourier (PSD), utilizamos o EMD (via pacote `EMD-signal`) para "descascar" o sinal bruto em Funções de Modo Intrínseco (IMFs) apenas nos canais de ouro (**C3, C4, P7, P8, F3, F4**) que foram evidenciados pelos resultados dos modelos anteriores.
+Pre-processing was performed using the `MNE-Python` library:
 
-### Resultados do Machine Learning
-Utilizando um **Random Forest Classifier** com Validação Cruzada Estratificada (5 Folds), obtivemos:
-* **Acurácia Média:** ~61.1%
-* **Feature Importances:** O modelo focou quase 80% de sua decisão em apenas duas regiões do hemisfério direito:
-    * `EMD_C4_IMF1_Entropia`: O nível de caos/desorganização nas ondas rápidas do Córtex Somatossensorial (C4).
-    * `EMD_P8_IMF2_Energia`: A força/variância das ondas médias no Lobo Parietal (P8).
+* **Import and Structuring:** Reading standardized `.fif` (and `.gdf`) files.
+* **Spatial and Temporal Filtering:** Application of High-pass (4 Hz) and Low-pass (40 Hz) filters to isolate cognitive frequencies (Theta, Alpha, Beta, and Gamma) and remove noise.
+* **Data Alignment:** Creation of a robust pipeline with `pandas` to merge the patient ID from the EEG file with their respective pain score from clinical questionnaires, utilizing strategies against missing values and incorrect typing (*Zero Padding* and safe *casting*).
 
 ---
 
-### Arquivos Principais
+## 2. Hypotheses Tested and "Failed" Models
 
-* **`preprocessamento.ipynb`**: Script de limpeza de dados MNE e geração da matriz mesclada com questionários.
-* **`modelos_regressao_pac.ipynb`**: Registro dos testes de baseline (SVM Regressor) e extração de PAC (Phase-Amplitude Coupling).
-* **`pipeline_emd_classificacao.ipynb`**: Pipeline final contendo a extração EMD, o modelo de Classificação Random Forest e a geração dos gráficos estatísticos.
-* **`tabelas/`**: Diretório esperado para os arquivos CSV (Demographics, BPI, PainDetect).
-* **`eeg_data/`**: Diretório esperado para os arquivos .fif pré-processados.
+We tested both classical and advanced approaches that encountered physical limitations due to the sample size:
+
+### Continuous Regression (SVR and Random Forest Regressor)
+* **Goal:** Attempting to predict the exact pain score (from 0 to 10) reported in the BPI questionnaire.
+* **Outcome:** Severe *overfitting* (negative $R^2$ and high RMSE errors).
+* **Conclusion:** With linear methods and only 36 patients, the model memorized training noise and failed during cross-validation.
+
+### Phase-Amplitude Coupling (PAC)
+* **Goal:** Measuring how slow waves modulate fast waves (e.g., Alpha-Gamma modulation in the frontal region).
+* **Outcome:** PAC generated 248 variables (biomarkers) per patient. With 248 *features* and only 36 samples, the Classification model's accuracy plummeted to ~39%.
+* **Conclusion:** The Random Forest algorithm "drowned" in dimensionality, while `SelectKBest` suffered from statistical illusion during K-Fold Cross-Validation, selecting false patterns generated by noise.
+
+---
+ 
+## 3. EMD Decomposition + Classification
+
+To circumvent the low number of samples, we shifted the paradigm:
+
+1. **Binary Problem:** We moved away from regression to classify patients into two real clinical groups: **Severe Pain ($\ge 6$)** vs. **Mild/Moderate Pain ($< 6$)**.
+2. **Empirical Mode Decomposition (EMD):** Since the brain is non-linear, instead of using Fourier (PSD), we utilized EMD (via the `EMD-signal` package) to "peel" the raw signal into Intrinsic Mode Functions (IMFs) specifically for the "golden channels" (**C3, C4, P7, P8, F3, F4**) highlighted by previous model results.
+
+### Machine Learning Results
+Using a **Random Forest Classifier** with Stratified Cross-Validation (5 Folds), we achieved:
+* **Average Accuracy:** ~61.1%
+* **Feature Importances:** The model focused nearly 80% of its decision-making on just two regions of the right hemisphere:
+    * `EMD_C4_IMF1_Entropy`: The level of chaos/disorganization in fast waves of the Somatosensory Cortex (C4).
+    * `EMD_P8_IMF2_Energy`: The strength/variance of medium waves in the Parietal Lobe (P8).
+
+---
+
+### File Structure
+
+* **`preprocessing.ipynb`**: Cleaning, filtering (1-40Hz), and artifact removal (ICA) of raw EEG signals.
+* **`test_models.ipynb`**: Integration of clinical data, extraction of power metrics (PSD), and initial regression tests, such as SVR (Support Vector Regression), to evaluate pain score predictability.
+* **`emd_model.ipynb`**: Non-linear decomposition (EMD), advanced biomarker extraction, and final Random Forest classification of pain severity (Severe vs. Mild/Moderate Pain).
+* **`tables/`**: Directory for CSV files (Demographics, BPI, PainDetect).
+* **`cleaned/`**: Directory for pre-processed .fif files.
+* **`images/`**: Directory for graphs and images generated by the code.
