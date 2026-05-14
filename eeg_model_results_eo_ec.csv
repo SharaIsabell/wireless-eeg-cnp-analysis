@@ -1,0 +1,13 @@
+Model,Condition,Accuracy,AUC_ROC,F1_Score
+Gaussian Naive Bayes,Eyes Open,0.5278,0.5155,0.5405
+Logistic Regression + RFE,Eyes Open,0.8611,0.935,0.8718
+Logistic Regression (Lasso),Eyes Open,0.8056,0.8235,0.8205
+Logistic Regression (Elastic Net),Eyes Open,0.6389,0.6471,0.6286
+Linear SVM + RFE,Eyes Open,0.75,0.7957,0.7568
+Random Forest + RFE,Eyes Open,0.4722,0.4396,0.5128
+Gaussian Naive Bayes,Eyes Closed,0.5,0.2786,0.64
+Logistic Regression + RFE,Eyes Closed,0.5833,0.678,0.5946
+Logistic Regression (Lasso),Eyes Closed,0.6667,0.7554,0.6842
+Logistic Regression (Elastic Net),Eyes Closed,0.6667,0.5944,0.6842
+Random Forest + RFE,Eyes Closed,0.5833,0.4985,0.5946
+Linear SVM + RFE,Eyes Closed,0.8056,0.8019,0.8108
