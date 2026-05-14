@@ -49,13 +49,15 @@ The EEG processing focuses on extracting measures across four frequency bands: T
 - Hemispheric Asymmetry: Measuring differences in Power and PAC between symmetrical brain regions (e.g., F3-F4). The normalized calculation used is (Right - Left) / (Right + Left).
 
 ### 4. Feature Selection and Modeling
-Using the biomarker matrix, feature selection techniques and multiple classification algorithms (Scikit-Learn / XGBoost) are applied:
+Using the biomarker matrix and feature selection techniques are applied:
 - Feature Selection: Methods such as SelectKBest (Mutual Information), RFE (Recursive Feature Elimination), and Lasso (L1) penalties filter the most determinant biomarkers.
 - Trained Models:
     - Gaussian Naive Bayes
     - Logistic Regression (RFE)
     - Logistic Regression (L1/Lasso)
     - Elastic Net
+    - Linear SVM (RFE)
+    - Random Forest (RFE)
 
 ### 5. Evaluation and Statistical Interpretability
 Given the medical nature of the data and the sample size, validation prioritizes reducing overfitting and ensuring reliability:
@@ -65,18 +67,28 @@ Given the medical nature of the data and the sample size, validation prioritizes
 - Significance: Execution of Permutation Tests (1000 rounds) to mathematically prove that classification patterns are significant (p-value < 0.05) and not due to chance.
 
 ### 6. Results
-After running a rigorous Leave-One-Out (LOO) Nested Cross-Validation, the models demonstrated varying degrees of success in differentiating between Severe and Mild/Moderate pain using only the extracted EEG features.
+After running a rigorous Leave-One-Out (LOO) Nested Cross-Validation, the models demonstrated varying degrees of success in differentiating between Severe and Mild/Moderate pain across both resting-state conditions: Eyes Open and Eyes Closed.
 
-The **Logistic Regression model, coupled with Recursive Feature Elimination (LogReg+RFE)**, significantly outperformed all other approaches. It achieved an accuracy of 86.1% and a remarkable AUC-ROC of 0.935, demonstrating a robust capability to classify pain intensity based on spectral power, phase-amplitude coupling, and hemispheric asymmetry.
+For the **Eyes Open** condition, the **Logistic Regression model coupled with Recursive Feature Elimination (LogReg+RFE)** significantly outperformed all other approaches. It achieved an accuracy of 86.11%, an AUC-ROC of 0.935, and an F1-Score of 0.8718.
 
-The table below summarizes the performance metrics for the tested models:
+Interestingly, for the **Eyes Closed** condition, the **Linear SVM + RFE** model yielded the best results, reaching an accuracy of 80.56%, an AUC-ROC of 0.8019, and an F1-Score of 0.8108.
 
-| Model | Accuracy | AUC-ROC | F1-Score |
-| :--- | :---: | :---: | :---: |
-| **LogReg + RFE** | **86.1%** | **0.935** | **0.872** |
-| Lasso | 80.6% | 0.824 | 0.821 |
-| ElasticNet | 63.9% | 0.647 | 0.629 |
-| Gaussian Naive Bayes (GNB) | 52.8% | 0.515 | 0.541 |
+The table below summarizes the performance metrics for all tested models in both conditions:
+
+| Condition | Model | Accuracy | AUC-ROC | F1-Score |
+| :--- | :--- | :---: | :---: | :---: |
+| **Eyes Open** | **Logistic Regression + RFE** | **86.11%** | **0.9350** | **0.8718** |
+| Eyes Open | Logistic Regression (Lasso) | 80.56% | 0.8235 | 0.8205 |
+| Eyes Open | Linear SVM + RFE | 75.00% | 0.7957 | 0.7568 |
+| Eyes Open | Logistic Regression (Elastic Net) | 63.89% | 0.6471 | 0.6286 |
+| Eyes Open | Gaussian Naive Bayes | 52.78% | 0.5155 | 0.5405 |
+| Eyes Open | Random Forest + RFE | 47.22% | 0.4396 | 0.5128 |
+| **Eyes Closed** | **Linear SVM + RFE** | **80.56%** | **0.8019** | **0.8108** |
+| Eyes Closed | Logistic Regression (Lasso) | 66.67% | 0.7554 | 0.6842 |
+| Eyes Closed | Logistic Regression (Elastic Net) | 66.67% | 0.5944 | 0.6842 |
+| Eyes Closed | Logistic Regression + RFE | 58.33% | 0.6780 | 0.5946 |
+| Eyes Closed | Random Forest + RFE | 58.33% | 0.4985 | 0.5946 |
+| Eyes Closed | Gaussian Naive Bayes | 50.00% | 0.2786 | 0.6400 |
 
 #### Performance Visualization
 
