@@ -94,13 +94,13 @@ The table below summarizes the performance metrics for all tested models in both
 
 The following visual comparisons detail the models' capabilities, highlighting the superiority of the `LogReg+RFE` approach both in terms of raw metrics and ROC curve behavior.
 
-![Descrição da sua imagem](images/model_comparison_graphs.png)
+![image](images/model_comparison_graphs_eo).png)
 
 #### Prediction X-Ray (Patient by Patient Analysis)
 
 To understand how each model performed on a granular level, the "Prediction X-Ray" below maps the specific hits and errors across the 36 LOO iterations (one for each patient). This allows us to observe which patients were consistently misclassified across different algorithms (e.g., Patient 21 and Patient 27) and confirm the stability of the `LogReg+RFE` model.
 
-![Descrição da sua imagem](images/patient_error_heatmap.png)
+![image](images/patient_error_heatmap_eo.png)
 
 ### File Structure
 
