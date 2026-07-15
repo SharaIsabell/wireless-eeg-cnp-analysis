@@ -94,7 +94,7 @@ The table below summarizes the performance metrics for all tested models in both
 
 The following visual comparisons detail the models' capabilities, highlighting the superiority of the `LogReg+RFE` approach both in terms of raw metrics and ROC curve behavior.
 
-![image](images/model_comparison_graphs_eo).png)
+![image](images/model_comparison_graphs_eo.png)
 
 #### Prediction X-Ray (Patient by Patient Analysis)
 
